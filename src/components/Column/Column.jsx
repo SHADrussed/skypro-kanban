@@ -8,7 +8,7 @@ export default function Column({ column }) {
       </div>
       <div className="cards">
         {column.cards.map((card) => (
-          <Card card={card} />
+          <Card key={card.id} card={card} />
         ))}
       </div>
     </div>

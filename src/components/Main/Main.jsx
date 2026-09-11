@@ -1,6 +1,4 @@
 import Calendar from "../Calendar/Calendar";
-import PopBrowse from "../popups/PopBrowse/PopBrowse";
-import PopNewCard from "../popups/PopNewCard/PopNewCard";
 
 export default function Main({ user }) {
   return (
