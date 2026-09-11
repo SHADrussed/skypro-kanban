@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Main from "./components/Main/Main";
 import Header from "./components/Header/Header";
@@ -7,110 +7,16 @@ import logoDark from "./images/logo_dark.png";
 import PopBrowse from "./components/popups/PopBrowse/PopBrowse";
 import PopNewCard from "./components/popups/PopNewCard/PopNewCard";
 import PopUser from "./components/popups/PopUser/PopUser";
+import { user } from "./data";
 
 function App() {
-  const [user, setUser] = useState({
-    name: "Ivan Ivanov",
-    email: "ivan.ivanov@gmail.com",
-    columns: [
-      {
-        title: "Без статуса",
-        cards: [
-          {
-            colourTheme: "orange",
-            category: "Web design",
-            title: "Название задачи",
-            description: "",
-            date: "30.10.23",
-          },
-          {
-            colourTheme: "green",
-            category: "Recearch",
-            title: "Название задачи",
-            description: "",
-            date: "30.10.23",
-          },
-          {
-            colourTheme: "orange",
-            category: "Web design",
-            title: "Название задачи",
-            description: "",
-            date: "30.10.23",
-          },
-          {
-            colourTheme: "purple",
-            category: "Copywriting",
-            title: "Название задачи",
-            description: "",
-            date: "30.10.23",
-          },
-        ],
-      },
-      {
-        title: "Нужно сделать",
-        cards: [
-          {
-            colourTheme: "green",
-            category: "Recearch",
-            title: "Название задачи",
-            description: "",
-            date: "30.10.23",
-          },
-        ],
-      },
-      {
-        title: "В работе",
-        cards: [
-          {
-            colourTheme: "green",
-            category: "Recearch",
-            title: "Название задачи",
-            description: "",
-            date: "30.10.23",
-          },
-          {
-            colourTheme: "purple",
-            category: "Copywriting",
-            title: "Название задачи",
-            description: "",
-            date: "30.10.23",
-          },
-          {
-            colourTheme: "orange",
-            category: "Web design",
-            title: "Название задачи",
-            description: "",
-            date: "30.10.23",
-          },
-        ],
-      },
-      {
-        title: "Тестирование",
-        cards: [
-          {
-            colourTheme: "green",
-            category: "Recearch",
-            title: "Название задачи",
-            description: "",
-            date: "30.10.23",
-          },
-        ],
-      },
-      {
-        title: "Готово",
-        cards: [
-          {
-            colourTheme: "green",
-            category: "Recearch",
-            title: "Название задачи",
-            description: "",
-            date: "30.10.23",
-          },
-        ],
-      },
-    ],
-  });
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+  }, []);
   return (
     <>
       <PopBrowse />
@@ -118,8 +24,14 @@ function App() {
       <PopUser />
       <div id="root">
         <div className="wrapper">
-          <Header logo={logo} logoDark={logoDark} user={user} />
-          <Main user={user} />
+          {loading ? (
+            <h1>Идёт загрузка...</h1>
+          ) : (
+            <>
+              <Header logo={logo} logoDark={logoDark} user={user} />
+              <Main user={user} />
+            </>
+          )}
         </div>
       </div>
 
