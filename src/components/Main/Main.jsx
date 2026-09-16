@@ -1,15 +1,17 @@
 import Calendar from "../Calendar/Calendar";
+import { Container } from "../styles/common";
+import { MainBlock, MainStyled } from "./Main.styled";
 
 export default function Main({ user }) {
   return (
     <>
-      <main className="main">
-        <div className="container">
-          <div className="main__block">
+      <MainStyled>
+        <Container>
+          <MainBlock>
             <Calendar user={user} />
-          </div>
-        </div>
-      </main>
+          </MainBlock>
+        </Container>
+      </MainStyled>
     </>
   );
 }

@@ -1,16 +1,17 @@
 import Card from "../Card/Card";
+import { CalendarColumn, CalendarColumnTitle, Cards } from "./Column.styled";
 
 export default function Column({ column }) {
   return (
-    <div className="main__column column">
-      <div className="column__title">
+    <CalendarColumn>
+      <CalendarColumnTitle>
         <p>{column.title}</p>
-      </div>
-      <div className="cards">
+      </CalendarColumnTitle>
+      <Cards>
         {column.cards.map((card) => (
           <Card key={card.id} card={card} />
         ))}
-      </div>
-    </div>
+      </Cards>
+    </CalendarColumn>
   );
 }
