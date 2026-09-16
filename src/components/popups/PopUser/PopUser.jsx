@@ -1,27 +1,24 @@
-export default function PopUser() {
+import {
+  ExitButton,
+  HeaderUserSetEmail,
+  HeaderUserSetName,
+  HeaderUserSetTheme,
+} from "./PopUser.styled";
+
+export default function PopUser({ user }) {
   return (
     <>
-      {/* <!-- pop-up start--> */}
+      <HeaderUserSetName>{user.name}</HeaderUserSetName>
+      <HeaderUserSetEmail>{user.email}</HeaderUserSetEmail>
 
-      <div className="pop-exit" id="popExit">
-        <div className="pop-exit__container">
-          <div className="pop-exit__block">
-            <div className="pop-exit__ttl">
-              <h2>Выйти из аккаунта?</h2>
-            </div>
-            <form className="pop-exit__form" id="formExit" action="#">
-              <div className="pop-exit__form-group">
-                <button className="pop-exit__exit-yes _hover01" id="exitYes">
-                  <a href="modal/signin.html">Да, выйти</a>{" "}
-                </button>
-                <button className="pop-exit__exit-no _hover03" id="exitNo">
-                  <a href="main.html">Нет, остаться</a>{" "}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+      <HeaderUserSetTheme>
+        <p>Темная тема</p>
+        <input type="checkbox" name="checkbox" />
+      </HeaderUserSetTheme>
+
+      <ExitButton>
+        <a href="#popExit">Выйти</a>
+      </ExitButton>
     </>
   );
 }

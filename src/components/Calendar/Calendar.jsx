@@ -1,11 +1,12 @@
 import Column from "../Column/Column";
+import { CalendarContent } from "./Calendar.styled";
 
 export default function Calendar({ user }) {
   return (
-    <div className="main__content">
+    <CalendarContent>
       {user.columns.map((column) => (
         <Column key={column.id} column={column} />
       ))}
-    </div>
+    </CalendarContent>
   );
 }
