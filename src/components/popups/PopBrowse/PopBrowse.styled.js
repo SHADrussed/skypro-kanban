@@ -149,10 +149,7 @@ export const PopBrowseForm = styled.form`
 `;
 
 export const PopBrowseOverlay = styled.div`
-  &:target {
-    display: block;
-  }
-  display: none;
+  display: block;
   width: 100%;
   height: 100%;
   min-width: 375px;

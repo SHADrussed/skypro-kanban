@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   StyledHeader,
   HeaderBlock,
@@ -13,31 +14,30 @@ import PopUser from "../popups/PopUser/PopUser";
 
 export default function Header({ logo, logoDark, user }) {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+
   return (
     <>
       <StyledHeader>
         <Container>
           <HeaderBlock>
             <HeaderLogo>
-              <a href="" target="_self">
+              <Link to="/">
                 <img src={logo} alt="logo" />
-              </a>
+              </Link>
             </HeaderLogo>
             <HeaderLogo $dark>
-              <a href="" target="_self">
+              <Link to="/">
                 <img src={logoDark} alt="logo" />
-              </a>
+              </Link>
             </HeaderLogo>
             <HeaderNav>
-              <HeaderButton id="btnMainNew">
-                <a href="#popNewCard">Создать новую задачу</a>
+              <HeaderButton id="btnMainNew" as={Link} to="/new-card">
+                Создать новую задачу
               </HeaderButton>
               <HeaderUser
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsUserMenuOpen(!isUserMenuOpen);
-                }}
-                href="#user-set-target"
+                as="button"
+                type="button"
+                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
               >
                 {user.name}
               </HeaderUser>

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   CategoriesP,
   CategoriesTheme,
@@ -20,13 +21,19 @@ import {
 import TaskCalendar from "../../TaskCalendar/TaskCalendar";
 
 export default function PopNewCard() {
+  const navigate = useNavigate();
+
   return (
     <PopNewCardOverlay id="popNewCard">
       <PopNewCardContainer>
         <PopNewCardBlock>
           <PopNewCardContent>
             <PopNewCardTtl>Создание задачи</PopNewCardTtl>
-            <PopNewCardClose href="#">
+            <PopNewCardClose
+              as="button"
+              type="button"
+              onClick={() => navigate("/")}
+            >
               &#10006;
             </PopNewCardClose>
             <PopNewCardWrap>
@@ -73,7 +80,7 @@ export default function PopNewCard() {
                 </CategoriesTheme>
               </CategoriesThemes>
             </PopNewCardCategories>
-            <FormNewCreate id="btnCreate">
+            <FormNewCreate id="btnCreate" type="button" onClick={() => navigate("/")}>
               Создать задачу
             </FormNewCreate>
           </PopNewCardContent>

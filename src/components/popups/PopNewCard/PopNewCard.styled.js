@@ -113,6 +113,8 @@ export const PopNewCardClose = styled.a`
   top: 20px;
   right: 30px;
   color: #94a6be;
+  border: none;
+  background: transparent;
   cursor: pointer;
   &:hover {
     color: #000000;
@@ -157,10 +159,7 @@ export const PopNewCardForm = styled.form`
 `;
 
 export const PopNewCardOverlay = styled.div`
-  &:target {
-    display: block;
-  }
-  display: none;
+  display: block;
   width: 100%;
   min-width: 375px;
   height: 100%;

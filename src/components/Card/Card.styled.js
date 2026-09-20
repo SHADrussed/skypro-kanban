@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const CardsItem = styled.div`
   padding: 5px;
   animation-name: card-animation;
@@ -83,7 +82,7 @@ export const CardContent = styled.div`
 `;
 
 export const CardTitle = styled.h3`
-font-size: 14px;
+  font-size: 14px;
   font-weight: 500;
   line-height: 18px;
   color: #000000;
@@ -91,17 +90,17 @@ font-size: 14px;
 `;
 
 export const CardDate = styled.div`
-display: flex;
+  display: flex;
   align-items: center;
   justify-content: flex-start;
-& svg {
-width: 13px;
-}
-& p {
-margin-left: 6px;
-  font-size: 10px;
-  line-height: 13px;
-  color: #94a6be;
-  letter-spacing: 0.2px;
-}
+  & svg {
+    width: 13px;
+  }
+  & p {
+    margin-left: 6px;
+    font-size: 10px;
+    line-height: 13px;
+    color: #94a6be;
+    letter-spacing: 0.2px;
+  }
 `;
