@@ -24,7 +24,7 @@ export const HeaderLogo = styled.div`
     width: 85px;
   }
 
-display: ${({ $dark }) => $dark ? "none" : "block"};
+  display: ${({ $dark }) => ($dark ? "none" : "block")};
 `;
 
 export const HeaderNav = styled.div`
@@ -44,6 +44,8 @@ export const HeaderButton = styled(Button)`
   font-size: 14px;
   line-height: 1;
   margin-right: 20px;
+  text-align: center;
+  padding-top: 8px;
   &:hover {
     background-color: #33399b;
   }
@@ -51,11 +53,22 @@ export const HeaderButton = styled(Button)`
     color: #ffffff;
   }
 
-@media screen and (max-width: 495px) { z-index: 3; position: fixed; left: 16px; bottom: 30px; width: calc(100vw - 32px); height: 40px; margin-right: 0; }
+  @media screen and (max-width: 495px) {
+    z-index: 3;
+    position: fixed;
+    left: 16px;
+    bottom: 30px;
+    width: calc(100vw - 32px);
+    height: 40px;
+    margin-right: 0;
+  }
 `;
 
 export const HeaderUser = styled.a`
   height: 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
@@ -76,7 +89,13 @@ export const HeaderUser = styled.a`
     padding: 0;
   }
 
-&:hover { color: #33399b; } &:hover::after { border-left-color: #33399b; border-bottom-color: #33399b; }
+  &:hover {
+    color: #33399b;
+  }
+  &:hover::after {
+    border-left-color: #33399b;
+    border-bottom-color: #33399b;
+  }
 `;
 
 export const HeaderUserPopSet = styled.div`

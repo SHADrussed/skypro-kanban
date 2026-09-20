@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   CardTitle,
   CardDate,
@@ -10,8 +11,6 @@ import {
 } from "./Card.styled";
 
 export default function Card({ card }) {
-
-
   return (
     <>
       <CardsItem>
@@ -20,18 +19,18 @@ export default function Card({ card }) {
             <CardTheme $colour={card.colourTheme}>
               <p>{card.category}</p>
             </CardTheme>
-            <a href="#popBrowse" target="_self">
+            <Link to={`/card/${card.id}`}>
               <CardButton>
                 <div></div>
                 <div></div>
                 <div></div>
               </CardButton>
-            </a>
+            </Link>
           </CardGroup>
           <CardContent>
-            <a href="" target="_blank">
+            <Link to={`/card/${card.id}`}>
               <CardTitle>{card.title}</CardTitle>
-            </a>
+            </Link>
             <CardDate>
               <svg
                 xmlns="http://www.w3.org/2000/svg"

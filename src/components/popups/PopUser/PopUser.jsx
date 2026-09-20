@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   ExitButton,
   HeaderUserSetEmail,
@@ -16,8 +17,8 @@ export default function PopUser({ user }) {
         <input type="checkbox" name="checkbox" />
       </HeaderUserSetTheme>
 
-      <ExitButton>
-        <a href="#popExit">Выйти</a>
+      <ExitButton as={Link} to="/exit">
+        Выйти
       </ExitButton>
     </>
   );

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   PopExitBlock,
   PopExitContainer,
@@ -9,11 +10,16 @@ import {
   PopExitTtl,
 } from "./PopExit.styled";
 
-export default function PopExit() {
+export default function PopExit({ onLogout }) {
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    onLogout();
+    navigate("/login", { replace: true });
+  }
+
   return (
     <>
-      {/* <!-- pop-up start--> */}
-
       <PopExitOverlay id="popExit">
         <PopExitContainer>
           <PopExitBlock>
@@ -22,11 +28,11 @@ export default function PopExit() {
             </PopExitTtl>
             <PopExitForm id="formExit" action="#">
               <PopExitFormGroup>
-                <PopExitExitYes id="exitYes">
-                  <a href="modal/signin.html">Да, выйти</a>{" "}
+                <PopExitExitYes id="exitYes" type="button" onClick={handleLogout}>
+                  Да, выйти
                 </PopExitExitYes>
-                <PopExitExitNo id="exitNo">
-                  <a href="#">Нет, остаться</a>{" "}
+                <PopExitExitNo id="exitNo" type="button" onClick={() => navigate("/")}>
+                  Нет, остаться
                 </PopExitExitNo>
               </PopExitFormGroup>
             </PopExitForm>

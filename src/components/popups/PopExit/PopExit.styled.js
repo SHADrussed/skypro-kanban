@@ -113,10 +113,7 @@ export const PopExitFormGroup = styled.div`
 `;
 
 export const PopExitOverlay = styled.div`
-  &:target {
-    display: block;
-  }
-  display: none;
+  display: block;
   width: 100%;
   height: 100%;
   min-width: 320px;

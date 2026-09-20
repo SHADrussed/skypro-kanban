@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   CategoriesP,
   CategoriesTheme,
@@ -23,14 +24,19 @@ import {
 } from "./PopBrowse.styled";
 import TaskCalendar from "../../TaskCalendar/TaskCalendar";
 
-export default function PopBrowse() {
+export default function PopBrowse({ cardId }) {
+  const navigate = useNavigate();
+
   return (
     <PopBrowseOverlay id="popBrowse">
       <PopBrowseContainer>
         <PopBrowseBlock>
           <PopBrowseContent>
             <PopBrowseTopBlock>
-              <PopBrowseTtl>Название задачи</PopBrowseTtl>
+              <div>
+                <PopBrowseTtl>Название задачи</PopBrowseTtl>
+                <p>Card ID: {cardId}</p>
+              </div>
               <CategoriesTheme $colour="orange" $active $placement="top">
                 <p>Web Design</p>
               </CategoriesTheme>
@@ -77,31 +83,21 @@ export default function PopBrowse() {
             </ThemeDown>
             <PopBrowseBtnBrowse>
               <div>
-                <PopupButton>
-                  <a href="#">Редактировать задачу</a>
-                </PopupButton>
-                <PopupButton>
-                  <a href="#">Удалить задачу</a>
-                </PopupButton>
+                <PopupButton type="button">Редактировать задачу</PopupButton>
+                <PopupButton type="button">Удалить задачу</PopupButton>
               </div>
-              <PopupButton $filled>
-                <a href="#">Закрыть</a>
+              <PopupButton $filled type="button" onClick={() => navigate("/")}>
+                Закрыть
               </PopupButton>
             </PopBrowseBtnBrowse>
             <PopBrowseBtnEdit $hidden>
               <div>
-                <PopupButton $filled>
-                  <a href="#">Сохранить</a>
-                </PopupButton>
-                <PopupButton>
-                  <a href="#">Отменить</a>
-                </PopupButton>
-                <PopupButton id="btnDelete">
-                  <a href="#">Удалить задачу</a>
-                </PopupButton>
+                <PopupButton $filled type="button">Сохранить</PopupButton>
+                <PopupButton type="button">Отменить</PopupButton>
+                <PopupButton id="btnDelete" type="button">Удалить задачу</PopupButton>
               </div>
-              <PopupButton $filled>
-                <a href="#">Закрыть</a>
+              <PopupButton $filled type="button" onClick={() => navigate("/")}>
+                Закрыть
               </PopupButton>
             </PopBrowseBtnEdit>
           </PopBrowseContent>
