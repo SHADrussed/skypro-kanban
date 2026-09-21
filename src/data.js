@@ -7,7 +7,7 @@ export const user = {
       title: "Без статуса",
       cards: [
         {
-          id: 0,
+          id: 1,
           colourTheme: "orange",
           category: "Web design",
           title: "Название задачи",
@@ -15,7 +15,7 @@ export const user = {
           date: "30.10.23",
         },
         {
-          id: 1,
+          id: 2,
           colourTheme: "green",
           category: "Recearch",
           title: "Название задачи",
@@ -23,7 +23,7 @@ export const user = {
           date: "30.10.23",
         },
         {
-          id: 2,
+          id: 3,
           colourTheme: "orange",
           category: "Web design",
           title: "Название задачи",
@@ -31,7 +31,7 @@ export const user = {
           date: "30.10.23",
         },
         {
-          id: 3,
+          id: 4,
           colourTheme: "purple",
           category: "Copywriting",
           title: "Название задачи",
@@ -45,7 +45,7 @@ export const user = {
       title: "Нужно сделать",
       cards: [
         {
-          id: 0,
+          id: 5,
           colourTheme: "green",
           category: "Recearch",
           title: "Название задачи",
@@ -59,7 +59,7 @@ export const user = {
       title: "В работе",
       cards: [
         {
-          id: 0,
+          id: 6,
           colourTheme: "green",
           category: "Recearch",
           title: "Название задачи",
@@ -67,7 +67,7 @@ export const user = {
           date: "30.10.23",
         },
         {
-          id: 1,
+          id: 7,
           colourTheme: "purple",
           category: "Copywriting",
           title: "Название задачи",
@@ -75,7 +75,7 @@ export const user = {
           date: "30.10.23",
         },
         {
-          id: 2,
+          id: 8,
           colourTheme: "orange",
           category: "Web design",
           title: "Название задачи",
@@ -89,7 +89,7 @@ export const user = {
       title: "Тестирование",
       cards: [
         {
-          id: 0,
+          id: 9,
           colourTheme: "green",
           category: "Recearch",
           title: "Название задачи",
@@ -103,7 +103,7 @@ export const user = {
       title: "Готово",
       cards: [
         {
-          id: 1,
+          id: 10,
           colourTheme: "green",
           category: "Recearch",
           title: "Название задачи",

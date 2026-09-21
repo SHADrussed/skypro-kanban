@@ -12,6 +12,7 @@ import { GlobalStyles } from "../components/styles/GlobalStyles";
 
 export default function MainPage({ children }) {
   const [loading, setLoading] = useState(true);
+  const isPopupPage = Boolean(children);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -26,7 +27,7 @@ export default function MainPage({ children }) {
       <GlobalStyles />
 
       <Wrapper>
-        {loading ? (
+        {loading && !isPopupPage ? (
           <h1>Идёт загрузка...</h1>
         ) : (
           <>
