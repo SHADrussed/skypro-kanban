@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Wrapper } from "../styles/common";
+import { useState } from "react";
 
 export default function SignIn({ onLogin }) {
   const [login, setLogin] = useState("");
@@ -41,7 +42,8 @@ export default function SignIn({ onLogin }) {
                 className="modal__input"
                 type="password"
                 name="password"
-                placeholder="Пароль"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
               />
 
               <button className="modal__btn-enter _hover01" type="submit">
