@@ -2,6 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { Wrapper } from "../styles/common";
 
 export default function SignIn({ onLogin }) {
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
   function handleSubmit(event) {
@@ -30,6 +33,8 @@ export default function SignIn({ onLogin }) {
                 type="text"
                 name="login"
                 placeholder="Эл. почта"
+                value={login}
+                onChange={(event) => setLogin(event.target.value)}
               />
 
               <input
