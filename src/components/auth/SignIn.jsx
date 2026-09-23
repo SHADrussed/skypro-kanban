@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ErrorMessage, Wrapper } from "../styles/common";
 import { useState } from "react";
 
-import { loginUser } from "../../api/api";
+import { loginUser } from "../../services/api";
 
 // Пересорбрать с singup в styled
 
@@ -22,12 +22,17 @@ export default function SignIn({ onLogin }) {
         login,
         password,
       });
-      console.log(data);
 
       onLogin(data.user);
       navigate("/");
     } catch (error) {
-      setError("Неверный логин или пароль");
+      if (error.response?.status === 400) {
+        setError("Неверный логин или пароль");
+      } else if (error.request) {
+        setError("Нет соединения с сервером");
+      } else {
+        setError("Не удалось выполнить вход");
+      }
     }
   }
 

@@ -20,7 +20,7 @@ import {
 } from "./PopNewCard.styled";
 import TaskCalendar from "../../TaskCalendar/TaskCalendar";
 import { useState } from "react";
-import { createTask } from "../../../api/api";
+import { createTask } from "../../../services/api";
 import { ErrorMessage } from "../../styles/common";
 
 export default function PopNewCard({ user }) {
@@ -37,10 +37,9 @@ export default function PopNewCard({ user }) {
     const taskData = { title, description, topic };
     try {
       const data = await createTask(taskData, user.token);
-      console.log(data);
       navigate("/");
     } catch (error) {
-      setError("Неправильно введены данные");
+      setError("Не удалось создать задачу");
     }
   }
 

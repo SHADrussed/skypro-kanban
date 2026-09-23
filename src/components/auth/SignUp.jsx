@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ErrorMessage, Wrapper } from "../styles/common";
-import { registerUser } from "../../api/api";
+import { registerUser } from "../../services/api";
 import { useState } from "react";
 
 export default function SignUp() {
@@ -17,7 +17,6 @@ export default function SignUp() {
     setError("");
     try {
       const data = await registerUser({ login, name, password });
-      console.log(data);
 
       navigate("/login");
     } catch (error) {

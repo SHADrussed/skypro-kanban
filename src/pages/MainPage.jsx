@@ -8,7 +8,7 @@ import logo from "../images/logo.png";
 import logoDark from "../images/logo_dark.png";
 
 import { GlobalStyles } from "../components/styles/GlobalStyles";
-import { getTasks } from "../api/api";
+import { getTasks } from "../services/api";
 
 export default function MainPage({ children, user }) {
   const [loading, setLoading] = useState(true);

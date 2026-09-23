@@ -24,7 +24,7 @@ import {
 } from "./PopBrowse.styled";
 import TaskCalendar from "../../TaskCalendar/TaskCalendar";
 import { useEffect, useState } from "react";
-import { getTask } from "../../../api/api";
+import { getTask } from "../../../services/api";
 
 export default function PopBrowse({ user, cardId }) {
   const navigate = useNavigate();
@@ -38,9 +38,14 @@ export default function PopBrowse({ user, cardId }) {
       try {
         const fetchedTask = await getTask(cardId, user.token);
         setCard(fetchedTask.task);
-        console.log(fetchedTask);
       } catch (error) {
-        setError("Не найдено");
+        if (error.response?.status === 404) {
+          setError("Задача не найдена");
+        } else if (error.request) {
+          setError("Нет соединения с сервером");
+        } else {
+          setError("Не удалось загрузить задачу");
+        }
       }
     }
 
