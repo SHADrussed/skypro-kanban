@@ -21,8 +21,8 @@ export default function SignIn({ onLogin }) {
     });
     console.log(data);
 
-    // onLogin();
-    // navigate("/");
+    onLogin(data.user);
+    navigate("/");
   }
 
   return (

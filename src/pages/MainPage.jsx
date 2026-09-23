@@ -7,19 +7,23 @@ import Header from "../components/Header/Header";
 import logo from "../images/logo.png";
 import logoDark from "../images/logo_dark.png";
 
-import { user } from "../data";
 import { GlobalStyles } from "../components/styles/GlobalStyles";
+import { getTasks } from "../api/api";
 
-export default function MainPage({ children }) {
+export default function MainPage({ children, user }) {
   const [loading, setLoading] = useState(true);
+  const [tasks, setTasks] = useState([]);
   const isPopupPage = Boolean(children);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3000);
+    async function fetchTasks() {
+      const fetchedTasks = await getTasks(user.token);
+      setTasks(fetchedTasks.tasks);
 
-    return () => clearTimeout(timer);
+      setLoading(false);
+    }
+
+    fetchTasks();
   }, []);
 
   return (
@@ -32,7 +36,7 @@ export default function MainPage({ children }) {
         ) : (
           <>
             <Header logo={logo} logoDark={logoDark} user={user} />
-            <Main user={user} />
+            <Main tasks={tasks} />
             {children}
           </>
         )}

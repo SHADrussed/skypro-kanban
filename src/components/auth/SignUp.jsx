@@ -13,7 +13,7 @@ export default function SignUp() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const data = await registerUser({});
+    const data = await registerUser({ login, name, password });
     console.log(data);
 
     navigate("/login");

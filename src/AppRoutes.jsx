@@ -12,7 +12,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function AppRoutes() {
-  const [isAuth, setIsAuth] = useState(false);
+  const [user, setUser] = useState(null);
 
   return (
     <BrowserRouter>
@@ -20,8 +20,8 @@ function AppRoutes() {
         <Route
           path="/"
           element={
-            <ProtectedRoute isAuth={isAuth}>
-              <MainPage />
+            <ProtectedRoute isAuth={!!user}>
+              <MainPage user={user} />
             </ProtectedRoute>
           }
         />
@@ -29,7 +29,7 @@ function AppRoutes() {
         <Route
           path="/card/:id"
           element={
-            <ProtectedRoute isAuth={isAuth}>
+            <ProtectedRoute isAuth={!!user}>
               <CardPage />
             </ProtectedRoute>
           }
@@ -38,7 +38,7 @@ function AppRoutes() {
         <Route
           path="/new-card"
           element={
-            <ProtectedRoute isAuth={isAuth}>
+            <ProtectedRoute isAuth={!!user}>
               <NewCardPage />
             </ProtectedRoute>
           }
@@ -47,7 +47,7 @@ function AppRoutes() {
         <Route
           path="/exit"
           element={
-            <ProtectedRoute isAuth={isAuth}>
+            <ProtectedRoute isAuth={!!user}>
               <ExitPage onLogout={() => setIsAuth(false)} />
             </ProtectedRoute>
           }
@@ -55,7 +55,7 @@ function AppRoutes() {
 
         <Route
           path="/login"
-          element={<LoginPage onLogin={() => setIsAuth(true)} />}
+          element={<LoginPage onLogin={(user) => setUser(user)} />}
         />
 
         <Route path="/register" element={<RegisterPage />} />
