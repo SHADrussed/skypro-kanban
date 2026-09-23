@@ -2,17 +2,27 @@ import { Link, useNavigate } from "react-router-dom";
 import { Wrapper } from "../styles/common";
 import { useState } from "react";
 
+import { loginUser } from "../../api/api";
+
+// Пересорбрать с singup в styled
+
 export default function SignIn({ onLogin }) {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
-    onLogin();
-    navigate("/");
+    const data = await loginUser({
+      login,
+      password,
+    });
+    console.log(data);
+
+    // onLogin();
+    // navigate("/");
   }
 
   return (
@@ -33,7 +43,7 @@ export default function SignIn({ onLogin }) {
                 className="modal__input"
                 type="text"
                 name="login"
-                placeholder="Эл. почта"
+                placeholder="Логин"
                 value={login}
                 onChange={(event) => setLogin(event.target.value)}
               />
@@ -42,6 +52,7 @@ export default function SignIn({ onLogin }) {
                 className="modal__input"
                 type="password"
                 name="password"
+                placeholder="Пароль"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
               />
