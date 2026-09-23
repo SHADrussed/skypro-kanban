@@ -60,6 +60,7 @@ function AppRoutes() {
               onLogin={(user) => {
                 setUser(user);
                 localStorage.setItem("user", JSON.stringify(user));
+                localStorage.removeItem("user");
               }}
             />
           }
