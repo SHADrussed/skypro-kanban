@@ -29,16 +29,27 @@ import { getTask } from "../../../api/api";
 export default function PopBrowse({ user, cardId }) {
   const navigate = useNavigate();
   const [card, setCard] = useState(null);
+
+  const [error, setError] = useState("");
+
   useEffect(() => {
     async function fetchTask() {
-      const fetchedTask = await getTask(cardId, user.token);
-      setCard(fetchedTask.task);
-      console.log(fetchedTask);
+      setError("");
+      try {
+        const fetchedTask = await getTask(cardId, user.token);
+        setCard(fetchedTask.task);
+        console.log(fetchedTask);
+      } catch (error) {
+        setError("Не найдено");
+      }
     }
 
     fetchTask();
   }, []);
 
+  if (error) {
+    return <h1>{error}</h1>;
+  }
   if (!card) {
     return <h1>Загрузка...</h1>;
   }

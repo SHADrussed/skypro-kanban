@@ -21,6 +21,7 @@ import {
 import TaskCalendar from "../../TaskCalendar/TaskCalendar";
 import { useState } from "react";
 import { createTask } from "../../../api/api";
+import { ErrorMessage } from "../../styles/common";
 
 export default function PopNewCard({ user }) {
   const navigate = useNavigate();
@@ -29,14 +30,18 @@ export default function PopNewCard({ user }) {
   const [description, setDescription] = useState("");
   const [topic, setTopic] = useState("Web Design");
 
+  const [error, setError] = useState("");
+
   async function handleCreateTask() {
-    // 1. собрать объект taskData
+    setError("");
     const taskData = { title, description, topic };
-    // 2. вызвать createTask(taskData, user.token)
-    const data = await createTask(taskData, user.token);
-    console.log(data);
-    // 3. после успешного запроса navigate("/")
-    navigate("/");
+    try {
+      const data = await createTask(taskData, user.token);
+      console.log(data);
+      navigate("/");
+    } catch (error) {
+      setError("Неправильно введены данные");
+    }
   }
 
   return (
@@ -105,6 +110,7 @@ export default function PopNewCard({ user }) {
                 </CategoriesTheme>
               </CategoriesThemes>
             </PopNewCardCategories>
+            {error && <ErrorMessage>{error}</ErrorMessage>}
             <FormNewCreate
               id="btnCreate"
               type="button"

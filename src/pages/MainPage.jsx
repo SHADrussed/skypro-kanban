@@ -13,14 +13,22 @@ import { getTasks } from "../api/api";
 export default function MainPage({ children, user }) {
   const [loading, setLoading] = useState(true);
   const [tasks, setTasks] = useState([]);
+
+  const [error, setError] = useState("");
+
   const isPopupPage = Boolean(children);
 
   useEffect(() => {
     async function fetchTasks() {
-      const fetchedTasks = await getTasks(user.token);
-      setTasks(fetchedTasks.tasks);
-
-      setLoading(false);
+      setError("");
+      try {
+        const fetchedTasks = await getTasks(user.token);
+        setTasks(fetchedTasks.tasks);
+      } catch (error) {
+        setError("Проблема с загрузкой");
+      } finally {
+        setLoading(false);
+      }
     }
 
     fetchTasks();
@@ -31,7 +39,9 @@ export default function MainPage({ children, user }) {
       <GlobalStyles />
 
       <Wrapper>
-        {loading && !isPopupPage ? (
+        {error ? (
+          <h1>{error}</h1>
+        ) : loading && !isPopupPage ? (
           <h1>Идёт загрузка...</h1>
         ) : (
           <>

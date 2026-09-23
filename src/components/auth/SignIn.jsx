@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Wrapper } from "../styles/common";
+import { ErrorMessage, Wrapper } from "../styles/common";
 import { useState } from "react";
 
 import { loginUser } from "../../api/api";
@@ -9,20 +9,26 @@ import { loginUser } from "../../api/api";
 export default function SignIn({ onLogin }) {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
+    setError("");
     event.preventDefault();
 
-    const data = await loginUser({
-      login,
-      password,
-    });
-    console.log(data);
+    try {
+      const data = await loginUser({
+        login,
+        password,
+      });
+      console.log(data);
 
-    onLogin(data.user);
-    navigate("/");
+      onLogin(data.user);
+      navigate("/");
+    } catch (error) {
+      setError("Неверный логин или пароль");
+    }
   }
 
   return (
@@ -60,6 +66,8 @@ export default function SignIn({ onLogin }) {
               <button className="modal__btn-enter _hover01" type="submit">
                 Войти
               </button>
+
+              {error && <ErrorMessage>{error}</ErrorMessage>}
 
               <div className="modal__form-group">
                 <p>Нужно зарегистрироваться?</p>

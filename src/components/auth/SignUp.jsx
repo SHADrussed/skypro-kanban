@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Wrapper } from "../styles/common";
+import { ErrorMessage, Wrapper } from "../styles/common";
 import { registerUser } from "../../api/api";
 import { useState } from "react";
 
@@ -10,13 +10,19 @@ export default function SignUp() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
+  const [error, setError] = useState("");
+
   async function handleSubmit(event) {
     event.preventDefault();
+    setError("");
+    try {
+      const data = await registerUser({ login, name, password });
+      console.log(data);
 
-    const data = await registerUser({ login, name, password });
-    console.log(data);
-
-    navigate("/login");
+      navigate("/login");
+    } catch (error) {
+      setError("Неверно указаны данные");
+    }
   }
 
   return (
@@ -59,6 +65,7 @@ export default function SignUp() {
               <button className="modal__btn-enter _hover01" id="btnEnter">
                 Зарегистрироваться
               </button>
+              {error && <ErrorMessage>{error}</ErrorMessage>}
               <div className="modal__form-group">
                 <p>Уже есть аккаунт?</p>
                 <Link to="/login">Войдите здесь</Link>
