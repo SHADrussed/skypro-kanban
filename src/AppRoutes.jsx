@@ -12,7 +12,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function AppRoutes() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
   return (
     <BrowserRouter>
@@ -30,7 +30,7 @@ function AppRoutes() {
           path="/card/:id"
           element={
             <ProtectedRoute isAuth={!!user}>
-              <CardPage />
+              <CardPage user={user} />
             </ProtectedRoute>
           }
         />
@@ -39,7 +39,7 @@ function AppRoutes() {
           path="/new-card"
           element={
             <ProtectedRoute isAuth={!!user}>
-              <NewCardPage />
+              <NewCardPage user={user} />
             </ProtectedRoute>
           }
         />
@@ -48,14 +48,21 @@ function AppRoutes() {
           path="/exit"
           element={
             <ProtectedRoute isAuth={!!user}>
-              <ExitPage onLogout={() => setIsAuth(false)} />
+              <ExitPage user={user} onLogout={() => setUser(null)} />
             </ProtectedRoute>
           }
         />
 
         <Route
           path="/login"
-          element={<LoginPage onLogin={(user) => setUser(user)} />}
+          element={
+            <LoginPage
+              onLogin={(user) => {
+                setUser(user);
+                localStorage.setItem("user", JSON.stringify(user));
+              }}
+            />
+          }
         />
 
         <Route path="/register" element={<RegisterPage />} />

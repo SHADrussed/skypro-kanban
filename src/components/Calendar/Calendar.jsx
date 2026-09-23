@@ -2,13 +2,26 @@ import Column from "../Column/Column";
 import { CalendarContent } from "./Calendar.styled";
 
 export default function Calendar({ tasks }) {
+  const statuses = [
+    "Без статуса",
+    "Нужно сделать",
+    "В работе",
+    "Тестирование",
+    "Готово",
+  ];
+
+  const columns = statuses.map((status) => {
+    return {
+      title: status,
+      cards: tasks.filter((task) => task.status === status),
+    };
+  });
+
   return (
     <CalendarContent>
-      {tasks.length > 0 ? (
-        tasks.map((column) => <Column key={column.id} column={column} />)
-      ) : (
-        <h1>Добавьте задачу!</h1>
-      )}
+      {columns.map((column) => (
+        <Column key={column.title} column={column} />
+      ))}
     </CalendarContent>
   );
 }

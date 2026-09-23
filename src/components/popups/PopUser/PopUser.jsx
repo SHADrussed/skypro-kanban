@@ -9,8 +9,8 @@ import {
 export default function PopUser({ user }) {
   return (
     <>
-      <HeaderUserSetName>{user.name}</HeaderUserSetName>
-      <HeaderUserSetEmail>{user.email}</HeaderUserSetEmail>
+      <HeaderUserSetName>{user.login}</HeaderUserSetName>
+      <HeaderUserSetEmail>{user.name}</HeaderUserSetEmail>
 
       <HeaderUserSetTheme>
         <p>Темная тема</p>

@@ -16,10 +16,10 @@ export default function Card({ card }) {
       <CardsItem>
         <CardsCard>
           <CardGroup>
-            <CardTheme $colour={card.colourTheme}>
-              <p>{card.category}</p>
+            <CardTheme $colour={card.topic}>
+              <p>{card.topic}</p>
             </CardTheme>
-            <Link to={`/card/${card.id}`}>
+            <Link to={`/card/${card._id}`}>
               <CardButton>
                 <div></div>
                 <div></div>
@@ -28,7 +28,7 @@ export default function Card({ card }) {
             </Link>
           </CardGroup>
           <CardContent>
-            <Link to={`/card/${card.id}`}>
+            <Link to={`/card/${card._id}`}>
               <CardTitle>{card.title}</CardTitle>
             </Link>
             <CardDate>
@@ -60,7 +60,7 @@ export default function Card({ card }) {
                   </clipPath>
                 </defs>
               </svg>
-              <p>{card.date}</p>
+              <p>{new Date(card.date).toLocaleDateString("ru-RU")}</p>
             </CardDate>
           </CardContent>
         </CardsCard>

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { user } from "../data";
 
 const kanbanHost = "https://wedev-api.sky.pro/api/kanban";
 const authHost = "https://wedev-api.sky.pro/api/user";
@@ -24,6 +23,20 @@ export async function registerUser(userData) {
 
 export async function getTasks(token) {
   const response = await axios.get(kanbanHost, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+}
+
+export async function createTask(taskData, token) {
+  const response = await axios.post(kanbanHost, taskData, {
+    headers: { "Content-Type": "", Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+}
+
+export async function getTask(cardId, token) {
+  const response = await axios.get(kanbanHost + `/${cardId}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;

@@ -1,10 +1,10 @@
 import MainPage from "./MainPage";
 import PopNewCard from "../components/popups/PopNewCard/PopNewCard";
 
-function NewCardPage() {
+function NewCardPage({ user }) {
   return (
-    <MainPage>
-      <PopNewCard />
+    <MainPage user={user}>
+      <PopNewCard user={user} />
     </MainPage>
   );
 }
