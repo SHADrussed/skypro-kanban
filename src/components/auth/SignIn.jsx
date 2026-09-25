@@ -1,15 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ErrorMessage, Wrapper } from "../styles/common";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { loginUser } from "../../services/api";
+import { AuthContext } from "../../contexts/AuthContext";
 
 // Пересорбрать с singup в styled
 
-export default function SignIn({ onLogin }) {
-  const [login, setLogin] = useState("");
+export default function SignIn() {
+  const [loginValue, setLoginValue] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const { login } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -19,11 +22,11 @@ export default function SignIn({ onLogin }) {
 
     try {
       const data = await loginUser({
-        login,
+        login: loginValue,
         password,
       });
 
-      onLogin(data.user);
+      login(data.user);
       navigate("/");
     } catch (error) {
       if (error.response?.status === 400) {
@@ -55,8 +58,8 @@ export default function SignIn({ onLogin }) {
                 type="text"
                 name="login"
                 placeholder="Логин"
-                value={login}
-                onChange={(event) => setLogin(event.target.value)}
+                value={loginValue}
+                onChange={(event) => setLoginValue(event.target.value)}
               />
 
               <input

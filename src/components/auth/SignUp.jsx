@@ -16,7 +16,7 @@ export default function SignUp() {
     event.preventDefault();
     setError("");
     try {
-      const data = await registerUser({ login, name, password });
+      await registerUser({ login, name, password });
 
       navigate("/login");
     } catch (error) {

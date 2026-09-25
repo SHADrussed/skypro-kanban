@@ -41,3 +41,17 @@ export async function getTask(cardId, token) {
   });
   return response.data;
 }
+
+export async function deleteTask(cardId, token) {
+  const response = await axios.delete(kanbanHost + `/${cardId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+}
+
+export async function updateTask(cardId, taskData, token) {
+  const response = await axios.put(kanbanHost + `/${cardId}`, taskData, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+}

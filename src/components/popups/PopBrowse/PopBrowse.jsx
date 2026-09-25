@@ -23,16 +23,22 @@ import {
   ThemeDown,
 } from "./PopBrowse.styled";
 import TaskCalendar from "../../TaskCalendar/TaskCalendar";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getTask } from "../../../services/api";
+import { AuthContext } from "../../../contexts/AuthContext";
+import { TasksContext } from "../../../contexts/TaskContext";
 
-export default function PopBrowse({ user, cardId }) {
+export default function PopBrowse({ cardId }) {
+  const { user } = useContext(AuthContext);
+  const { removeTask } = useContext(TasksContext);
   const navigate = useNavigate();
   const [card, setCard] = useState(null);
 
   const [error, setError] = useState("");
 
   useEffect(() => {
+    if (!user.token) return;
+
     async function fetchTask() {
       setError("");
       try {
@@ -50,7 +56,16 @@ export default function PopBrowse({ user, cardId }) {
     }
 
     fetchTask();
-  }, []);
+  }, [cardId, user.token]);
+
+  async function handleDelete() {
+    try {
+      await removeTask(cardId);
+      navigate("/");
+    } catch (error) {
+      setError("Не удалось удалить задачу");
+    }
+  }
 
   if (error) {
     return <h1>{error}</h1>;
@@ -132,7 +147,9 @@ export default function PopBrowse({ user, cardId }) {
             <PopBrowseBtnBrowse>
               <div>
                 <PopupButton type="button">Редактировать задачу</PopupButton>
-                <PopupButton type="button">Удалить задачу</PopupButton>
+                <PopupButton type="button" onClick={handleDelete}>
+                  Удалить задачу
+                </PopupButton>
               </div>
               <PopupButton $filled type="button" onClick={() => navigate("/")}>
                 Закрыть
@@ -143,8 +160,14 @@ export default function PopBrowse({ user, cardId }) {
                 <PopupButton $filled type="button">
                   Сохранить
                 </PopupButton>
-                <PopupButton type="button">Отменить</PopupButton>
-                <PopupButton id="btnDelete" type="button">
+                <PopupButton type="button" onClick={() => "/"}>
+                  Отменить
+                </PopupButton>
+                <PopupButton
+                  id="btnDelete"
+                  type="button"
+                  onClick={handleDelete}
+                >
                   Удалить задачу
                 </PopupButton>
               </div>

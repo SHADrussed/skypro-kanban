@@ -19,11 +19,12 @@ import {
   Subttl,
 } from "./PopNewCard.styled";
 import TaskCalendar from "../../TaskCalendar/TaskCalendar";
-import { useState } from "react";
-import { createTask } from "../../../services/api";
+import { useContext, useState } from "react";
 import { ErrorMessage } from "../../styles/common";
+import { TasksContext } from "../../../contexts/TaskContext";
 
-export default function PopNewCard({ user }) {
+export default function PopNewCard() {
+  const { addTask } = useContext(TasksContext);
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
@@ -36,7 +37,7 @@ export default function PopNewCard({ user }) {
     setError("");
     const taskData = { title, description, topic };
     try {
-      const data = await createTask(taskData, user.token);
+      await addTask(taskData);
       navigate("/");
     } catch (error) {
       setError("Не удалось создать задачу");

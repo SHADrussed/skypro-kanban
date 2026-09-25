@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import Column from "../Column/Column";
 import { CalendarContent } from "./Calendar.styled";
+import { TasksContext } from "../../contexts/TaskContext";
 
-export default function Calendar({ tasks }) {
+export default function Calendar() {
+  const { tasks } = useContext(TasksContext);
+
   const statuses = [
     "Без статуса",
     "Нужно сделать",

@@ -9,7 +9,7 @@ export default function Column({ column }) {
       </CalendarColumnTitle>
       <Cards>
         {column.cards.map((card) => (
-          <Card key={card.id} card={card} />
+          <Card key={card._id} card={card} />
         ))}
       </Cards>
     </CalendarColumn>

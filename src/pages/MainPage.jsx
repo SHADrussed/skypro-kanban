@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 
 import { Wrapper } from "../components/styles/common";
 import Main from "../components/Main/Main";
@@ -8,31 +8,11 @@ import logo from "../images/logo.png";
 import logoDark from "../images/logo_dark.png";
 
 import { GlobalStyles } from "../components/styles/GlobalStyles";
-import { getTasks } from "../services/api";
+import { TasksContext } from "../contexts/TaskContext";
 
-export default function MainPage({ children, user }) {
-  const [loading, setLoading] = useState(true);
-  const [tasks, setTasks] = useState([]);
-
-  const [error, setError] = useState("");
-
+export default function MainPage({ children }) {
+  const { tasks, loading, error } = useContext(TasksContext);
   const isPopupPage = Boolean(children);
-
-  useEffect(() => {
-    async function fetchTasks() {
-      setError("");
-      try {
-        const fetchedTasks = await getTasks(user.token);
-        setTasks(fetchedTasks.tasks);
-      } catch (error) {
-        setError("Проблема с загрузкой");
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchTasks();
-  }, []);
 
   return (
     <>
@@ -45,8 +25,8 @@ export default function MainPage({ children, user }) {
           <h1>Идёт загрузка...</h1>
         ) : (
           <>
-            <Header logo={logo} logoDark={logoDark} user={user} />
-            <Main tasks={tasks} />
+            <Header logo={logo} logoDark={logoDark} />
+            <Main />
             {children}
           </>
         )}

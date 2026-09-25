@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import MainPage from "./pages/MainPage";
@@ -10,9 +10,10 @@ import ExitPage from "./pages/ExitPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import { AuthContext } from "./contexts/AuthContext";
 
 function AppRoutes() {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const { user } = useContext(AuthContext);
 
   return (
     <BrowserRouter>
@@ -21,7 +22,7 @@ function AppRoutes() {
           path="/"
           element={
             <ProtectedRoute isAuth={!!user}>
-              <MainPage user={user} />
+              <MainPage />
             </ProtectedRoute>
           }
         />
@@ -30,7 +31,7 @@ function AppRoutes() {
           path="/card/:id"
           element={
             <ProtectedRoute isAuth={!!user}>
-              <CardPage user={user} />
+              <CardPage />
             </ProtectedRoute>
           }
         />
@@ -39,7 +40,7 @@ function AppRoutes() {
           path="/new-card"
           element={
             <ProtectedRoute isAuth={!!user}>
-              <NewCardPage user={user} />
+              <NewCardPage />
             </ProtectedRoute>
           }
         />
@@ -48,28 +49,12 @@ function AppRoutes() {
           path="/exit"
           element={
             <ProtectedRoute isAuth={!!user}>
-              <ExitPage
-                user={user}
-                onLogout={() => {
-                  setUser(null);
-                  localStorage.removeItem("user");
-                }}
-              />
+              <ExitPage />
             </ProtectedRoute>
           }
         />
 
-        <Route
-          path="/login"
-          element={
-            <LoginPage
-              onLogin={(user) => {
-                setUser(user);
-                localStorage.setItem("user", JSON.stringify(user));
-              }}
-            />
-          }
-        />
+        <Route path="/login" element={<LoginPage />} />
 
         <Route path="/register" element={<RegisterPage />} />
 
