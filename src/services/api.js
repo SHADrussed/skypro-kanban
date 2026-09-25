@@ -51,7 +51,10 @@ export async function deleteTask(cardId, token) {
 
 export async function updateTask(cardId, taskData, token) {
   const response = await axios.put(kanbanHost + `/${cardId}`, taskData, {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: {
+      "Content-Type": "",
+      Authorization: `Bearer ${token}`,
+    },
   });
   return response.data;
 }

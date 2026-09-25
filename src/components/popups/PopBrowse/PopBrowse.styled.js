@@ -85,6 +85,7 @@ export const PopBrowseBtnBrowse = styled.div`
       margin-right: 0;
     }
   }
+  ${({ $hidden }) => $hidden && "display: none;"}
 `;
 
 export const PopBrowseBtnEdit = styled.div`
@@ -114,7 +115,7 @@ export const PopBrowseBtnEdit = styled.div`
       margin-right: 0;
     }
   }
-  display: none;
+  ${({ $hidden }) => $hidden && "display: none;"}
 `;
 
 export const PopBrowseContainer = styled.div`
@@ -210,12 +211,13 @@ export const StatusTheme = styled.div`
     line-height: 1;
     letter-spacing: -0.14px;
   }
-  ${({ $colour }) => ({
-    orange: "background-color: #ffe4c2; color: #ff6d00;",
-    green: "background-color: #b4fdd1; color: #06b16e;",
-    purple: "background-color: #e9d4ff; color: #9a48f1;",
-    gray: "background-color: #94a6be; color: #ffffff;",
-  })[$colour]}
+  ${({ $colour }) =>
+    ({
+      orange: "background-color: #ffe4c2; color: #ff6d00;",
+      green: "background-color: #b4fdd1; color: #06b16e;",
+      purple: "background-color: #e9d4ff; color: #9a48f1;",
+      gray: "background-color: #94a6be; color: #ffffff;",
+    })[$colour]}
   ${({ $active }) => $active && "opacity: 1;"}
   ${({ $hidden }) => $hidden && "display: none;"}
 `;
@@ -230,9 +232,15 @@ export const StatusThemes = styled.div`
 export const ThemeDown = styled.div`
   display: none;
   margin-bottom: 20px;
+  ${({ $shown }) => $shown && "display: block;"}
   @media screen and (max-width: 495px) {
     display: block;
   }
 `;
 
-export { CategoriesP, CategoriesTheme, PopupButton, Subttl } from "../../styles/Popup.styled";
+export {
+  CategoriesP,
+  CategoriesTheme,
+  PopupButton,
+  Subttl,
+} from "../../styles/Popup.styled";

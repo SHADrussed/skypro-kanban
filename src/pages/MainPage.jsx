@@ -11,7 +11,7 @@ import { GlobalStyles } from "../components/styles/GlobalStyles";
 import { TasksContext } from "../contexts/TaskContext";
 
 export default function MainPage({ children }) {
-  const { tasks, loading, error } = useContext(TasksContext);
+  const { loading, error } = useContext(TasksContext);
   const isPopupPage = Boolean(children);
 
   return (

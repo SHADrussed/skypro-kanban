@@ -31,6 +31,7 @@ export const CategoriesTheme = styled.div`
     })[$colour]}
   ${({ $active }) => $active && "opacity: 1;"}
   ${({ $placement }) => $placement === "top" && "display: block;"}
+  ${({ $hidden }) => $hidden && "display: none;"}
   @media screen and (max-width: 495px) {
     ${({ $placement }) => $placement === "top" && "display: none;"}
   }

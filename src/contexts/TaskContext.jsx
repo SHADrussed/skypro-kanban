@@ -41,7 +41,7 @@ function TasksProvider({ children }) {
 
       setTasks(data.tasks);
     } catch (error) {
-      setError("Не удалось удалить задачу");
+      setError("Не удалось изменить задачу");
       throw error;
     }
   }
