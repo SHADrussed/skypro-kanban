@@ -1,10 +1,10 @@
 import MainPage from "./MainPage";
 import PopExit from "../components/popups/PopExit/PopExit";
 
-function ExitPage({ onLogout }) {
+function ExitPage() {
   return (
     <MainPage>
-      <PopExit onLogout={onLogout} />
+      <PopExit />
     </MainPage>
   );
 }

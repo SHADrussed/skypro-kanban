@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 
 import { Wrapper } from "../components/styles/common";
 import Main from "../components/Main/Main";
@@ -7,31 +7,26 @@ import Header from "../components/Header/Header";
 import logo from "../images/logo.png";
 import logoDark from "../images/logo_dark.png";
 
-import { user } from "../data";
 import { GlobalStyles } from "../components/styles/GlobalStyles";
+import { TasksContext } from "../contexts/TaskContext";
 
 export default function MainPage({ children }) {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const { loading, error } = useContext(TasksContext);
+  const isPopupPage = Boolean(children);
 
   return (
     <>
       <GlobalStyles />
 
       <Wrapper>
-        {loading ? (
+        {error ? (
+          <h1>{error}</h1>
+        ) : loading && !isPopupPage ? (
           <h1>Идёт загрузка...</h1>
         ) : (
           <>
-            <Header logo={logo} logoDark={logoDark} user={user} />
-            <Main user={user} />
+            <Header logo={logo} logoDark={logoDark} />
+            <Main />
             {children}
           </>
         )}

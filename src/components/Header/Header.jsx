@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   StyledHeader,
@@ -11,8 +11,11 @@ import {
 } from "./Header.styled";
 import { Container } from "../styles/common";
 import PopUser from "../popups/PopUser/PopUser";
+import { AuthContext } from "../../contexts/AuthContext";
 
-export default function Header({ logo, logoDark, user }) {
+export default function Header({ logo, logoDark }) {
+  const { user } = useContext(AuthContext);
+
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   return (
@@ -42,7 +45,7 @@ export default function Header({ logo, logoDark, user }) {
                 {user.name}
               </HeaderUser>
               <HeaderUserPopSet $isOpen={isUserMenuOpen} id="user-set-target">
-                <PopUser user={user} />
+                <PopUser />
               </HeaderUserPopSet>
             </HeaderNav>
           </HeaderBlock>

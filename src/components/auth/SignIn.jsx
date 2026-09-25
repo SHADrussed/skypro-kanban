@@ -1,14 +1,42 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Wrapper } from "../styles/common";
+import { ErrorMessage, Wrapper } from "../styles/common";
+import { useContext, useState } from "react";
 
-export default function SignIn({ onLogin }) {
+import { loginUser } from "../../services/api";
+import { AuthContext } from "../../contexts/AuthContext";
+
+// Пересорбрать с singup в styled
+
+export default function SignIn() {
+  const [loginValue, setLoginValue] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const { login } = useContext(AuthContext);
+
   const navigate = useNavigate();
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
+    setError("");
     event.preventDefault();
 
-    onLogin();
-    navigate("/");
+    try {
+      const data = await loginUser({
+        login: loginValue,
+        password,
+      });
+
+      login(data.user);
+      navigate("/");
+    } catch (error) {
+      if (error.response?.status === 400) {
+        setError("Неверный логин или пароль");
+      } else if (error.request) {
+        setError("Нет соединения с сервером");
+      } else {
+        setError("Не удалось выполнить вход");
+      }
+    }
   }
 
   return (
@@ -29,7 +57,9 @@ export default function SignIn({ onLogin }) {
                 className="modal__input"
                 type="text"
                 name="login"
-                placeholder="Эл. почта"
+                placeholder="Логин"
+                value={loginValue}
+                onChange={(event) => setLoginValue(event.target.value)}
               />
 
               <input
@@ -37,11 +67,15 @@ export default function SignIn({ onLogin }) {
                 type="password"
                 name="password"
                 placeholder="Пароль"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
               />
 
               <button className="modal__btn-enter _hover01" type="submit">
                 Войти
               </button>
+
+              {error && <ErrorMessage>{error}</ErrorMessage>}
 
               <div className="modal__form-group">
                 <p>Нужно зарегистрироваться?</p>

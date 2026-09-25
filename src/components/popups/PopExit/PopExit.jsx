@@ -9,12 +9,15 @@ import {
   PopExitOverlay,
   PopExitTtl,
 } from "./PopExit.styled";
+import { useContext } from "react";
+import { AuthContext } from "../../../contexts/AuthContext";
 
-export default function PopExit({ onLogout }) {
+export default function PopExit() {
+  const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   function handleLogout() {
-    onLogout();
+    logout();
     navigate("/login", { replace: true });
   }
 
@@ -28,10 +31,18 @@ export default function PopExit({ onLogout }) {
             </PopExitTtl>
             <PopExitForm id="formExit" action="#">
               <PopExitFormGroup>
-                <PopExitExitYes id="exitYes" type="button" onClick={handleLogout}>
+                <PopExitExitYes
+                  id="exitYes"
+                  type="button"
+                  onClick={handleLogout}
+                >
                   Да, выйти
                 </PopExitExitYes>
-                <PopExitExitNo id="exitNo" type="button" onClick={() => navigate("/")}>
+                <PopExitExitNo
+                  id="exitNo"
+                  type="button"
+                  onClick={() => navigate("/")}
+                >
                   Нет, остаться
                 </PopExitExitNo>
               </PopExitFormGroup>

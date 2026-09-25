@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import MainPage from "./pages/MainPage";
@@ -10,9 +10,10 @@ import ExitPage from "./pages/ExitPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import { AuthContext } from "./contexts/AuthContext";
 
 function AppRoutes() {
-  const [isAuth, setIsAuth] = useState(false);
+  const { user } = useContext(AuthContext);
 
   return (
     <BrowserRouter>
@@ -20,7 +21,7 @@ function AppRoutes() {
         <Route
           path="/"
           element={
-            <ProtectedRoute isAuth={isAuth}>
+            <ProtectedRoute isAuth={!!user}>
               <MainPage />
             </ProtectedRoute>
           }
@@ -29,7 +30,7 @@ function AppRoutes() {
         <Route
           path="/card/:id"
           element={
-            <ProtectedRoute isAuth={isAuth}>
+            <ProtectedRoute isAuth={!!user}>
               <CardPage />
             </ProtectedRoute>
           }
@@ -38,7 +39,7 @@ function AppRoutes() {
         <Route
           path="/new-card"
           element={
-            <ProtectedRoute isAuth={isAuth}>
+            <ProtectedRoute isAuth={!!user}>
               <NewCardPage />
             </ProtectedRoute>
           }
@@ -47,16 +48,13 @@ function AppRoutes() {
         <Route
           path="/exit"
           element={
-            <ProtectedRoute isAuth={isAuth}>
-              <ExitPage onLogout={() => setIsAuth(false)} />
+            <ProtectedRoute isAuth={!!user}>
+              <ExitPage />
             </ProtectedRoute>
           }
         />
 
-        <Route
-          path="/login"
-          element={<LoginPage onLogin={() => setIsAuth(true)} />}
-        />
+        <Route path="/login" element={<LoginPage />} />
 
         <Route path="/register" element={<RegisterPage />} />
 

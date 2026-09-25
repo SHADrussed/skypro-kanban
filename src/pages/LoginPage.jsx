@@ -1,7 +1,7 @@
 import SignIn from "../components/auth/SignIn";
 
-function LoginPage({ onLogin }) {
-  return <SignIn onLogin={onLogin} />;
+function LoginPage() {
+  return <SignIn />;
 }
 
 export default LoginPage;
