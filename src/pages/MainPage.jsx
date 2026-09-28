@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { Wrapper } from "../components/styles/common";
 import Main from "../components/Main/Main";
 import Header from "../components/Header/Header";
+import Loader from "../components/Loader/Loader";
 
 import logo from "../images/logo.png";
 import logoDark from "../images/logo_dark.png";
@@ -22,7 +23,7 @@ export default function MainPage({ children }) {
         {error ? (
           <h1>{error}</h1>
         ) : loading && !isPopupPage ? (
-          <h1>Идёт загрузка...</h1>
+          <Loader />
         ) : (
           <>
             <Header logo={logo} logoDark={logoDark} />

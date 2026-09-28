@@ -15,12 +15,24 @@ export default function SignUp() {
   async function handleSubmit(event) {
     event.preventDefault();
     setError("");
+
+    if (!login.trim() || !name.trim() || !password.trim()) {
+      setError("Заполните все поля");
+      return;
+    }
+
     try {
       await registerUser({ login, name, password });
 
       navigate("/login");
     } catch (error) {
-      setError("Неверно указаны данные");
+      if (error.response) {
+        setError("Сервер ответил ошибкой");
+      } else if (error.request) {
+        setError("Нет соединения с сервером");
+      } else {
+        setError("Не удалось зарегистрироваться. Проверьте введённые данные");
+      }
     }
   }
 

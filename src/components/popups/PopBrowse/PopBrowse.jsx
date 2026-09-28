@@ -27,6 +27,7 @@ import { useContext, useEffect, useState } from "react";
 import { getTask } from "../../../services/api";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { TasksContext } from "../../../contexts/TaskContext";
+import Loader from "../../Loader/Loader";
 
 export default function PopBrowse({ cardId }) {
   const statuses = [
@@ -76,7 +77,13 @@ export default function PopBrowse({ cardId }) {
       await removeTask(cardId);
       navigate("/");
     } catch (error) {
-      setError("Не удалось удалить задачу");
+      if (error.response) {
+        setError("Не удалось удалить задачу");
+      } else if (error.request) {
+        setError("Нет соединения с сервером");
+      } else {
+        setError("Не удалось удалить задачу");
+      }
     }
   }
 
@@ -86,22 +93,36 @@ export default function PopBrowse({ cardId }) {
   }
 
   async function handleSave() {
+    const cleanTask = {
+      ...updatedTask,
+      title: updatedTask.title.trim(),
+      description: updatedTask.description.trim(),
+    };
+    if (!cleanTask.title || !cleanTask.description) {
+      setError("Заполните полностью поля");
+      return;
+    }
     try {
-      await editTask(cardId, updatedTask);
+      await editTask(cardId, cleanTask);
 
-      setCard(updatedTask);
+      setCard(cleanTask);
+      setUpdatedTask(cleanTask);
       setIsEditing(false);
     } catch (error) {
-      setError("Не удалось изменить задачу");
+      if (error.response) {
+        setError("Не удалось изменить задачу. Проверьте введённые данные");
+      } else if (error.request) {
+        setError("Нет соединения с сервером");
+      } else {
+        setError("Не удалось изменить задачу");
+      }
     }
   }
 
   if (error) {
     return <h1>{error}</h1>;
   }
-  if (!card) {
-    return <h1>Загрузка...</h1>;
-  }
+  if (!card) return <Loader />;
   return (
     <PopBrowseOverlay id="popBrowse">
       <PopBrowseContainer>

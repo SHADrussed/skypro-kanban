@@ -5,8 +5,6 @@ import { useContext, useState } from "react";
 import { loginUser } from "../../services/api";
 import { AuthContext } from "../../contexts/AuthContext";
 
-// Пересорбрать с singup в styled
-
 export default function SignIn() {
   const [loginValue, setLoginValue] = useState("");
   const [password, setPassword] = useState("");
@@ -20,10 +18,15 @@ export default function SignIn() {
     setError("");
     event.preventDefault();
 
+    if (!loginValue.trim() || !password.trim()) {
+      setError("Поля имеют неккоректные данные");
+      return;
+    }
+
     try {
       const data = await loginUser({
-        login: loginValue,
-        password,
+        login: loginValue.trim(),
+        password: password.trim(),
       });
 
       login(data.user);

@@ -17,7 +17,13 @@ function TasksProvider({ children }) {
 
       setTasks(data.tasks);
     } catch (error) {
-      setError("Не удалось создать задачу");
+      if (error.response) {
+        setError("Не удалось добавить задачу. Проверьте введённые данные");
+      } else if (error.request) {
+        setError("Нет соединения с сервером");
+      } else {
+        setError("Не удалось добавить задачу");
+      }
       throw error;
     }
   }
@@ -29,7 +35,13 @@ function TasksProvider({ children }) {
 
       setTasks(data.tasks);
     } catch (error) {
-      setError("Не удалось удалить задачу");
+      if (error.response) {
+        setError("Не удалось удалить задачу");
+      } else if (error.request) {
+        setError("Нет соединения с сервером");
+      } else {
+        setError("Не удалось удалить задачу");
+      }
       throw error;
     }
   }
@@ -41,7 +53,13 @@ function TasksProvider({ children }) {
 
       setTasks(data.tasks);
     } catch (error) {
-      setError("Не удалось изменить задачу");
+      if (error.response) {
+        setError("Не удалось изменить задачу. Проверьте введённые данные");
+      } else if (error.request) {
+        setError("Нет соединения с сервером");
+      } else {
+        setError("Не удалось изменить задачу");
+      }
       throw error;
     }
   }
@@ -55,7 +73,13 @@ function TasksProvider({ children }) {
         const fetchedTasks = await getTasks(user.token);
         setTasks(fetchedTasks.tasks);
       } catch (error) {
-        setError("Проблема с загрузкой");
+        if (error.response) {
+          setError("Не удалось достать задачи");
+        } else if (error.request) {
+          setError("Нет соединения с сервером");
+        } else {
+          setError("Не удалось достать задачи");
+        }
       } finally {
         setLoading(false);
       }

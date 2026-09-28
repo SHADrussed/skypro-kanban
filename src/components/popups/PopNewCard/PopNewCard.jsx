@@ -35,12 +35,28 @@ export default function PopNewCard() {
 
   async function handleCreateTask() {
     setError("");
-    const taskData = { title, description, topic };
+    const taskData = {
+      title: title.trim(),
+      description: description.trim(),
+      topic,
+    };
+
+    if (!taskData.title || !taskData.description) {
+      setError("Заполните полностью поля");
+      return;
+    }
+
     try {
       await addTask(taskData);
       navigate("/");
     } catch (error) {
-      setError("Не удалось создать задачу");
+      if (error.response) {
+        setError("Не удалось создать задачу. Проверьте введённые данные");
+      } else if (error.request) {
+        setError("Нет соединения с сервером");
+      } else {
+        setError("Не удалось создать задачу");
+      }
     }
   }
 

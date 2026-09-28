@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import Column from "../Column/Column";
-import { CalendarContent } from "./Calendar.styled";
+import { CalendarContent, EmptyState } from "./Calendar.styled";
 import { TasksContext } from "../../contexts/TaskContext";
 
 export default function Calendar() {
@@ -13,6 +13,10 @@ export default function Calendar() {
     "Тестирование",
     "Готово",
   ];
+
+  if (tasks.length === 0) {
+    return <EmptyState>Новых задач нет</EmptyState>;
+  }
 
   const columns = statuses.map((status) => {
     return {
