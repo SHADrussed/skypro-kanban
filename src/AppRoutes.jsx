@@ -25,7 +25,11 @@ function AppRoutes() {
               <MainPage />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route path="card/:id" element={<CardPage />} />
+          <Route path="new-card" element={<NewCardPage />} />
+          <Route path="exit" element={<ExitPage />} />
+        </Route>
 
         <Route
           path="/card/:id"

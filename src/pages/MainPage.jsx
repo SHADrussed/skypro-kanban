@@ -10,10 +10,10 @@ import logoDark from "../images/logo_dark.png";
 
 import { GlobalStyles } from "../components/styles/GlobalStyles";
 import { TasksContext } from "../contexts/TaskContext";
+import { Outlet } from "react-router-dom";
 
-export default function MainPage({ children }) {
+export default function MainPage() {
   const { loading, error } = useContext(TasksContext);
-  const isPopupPage = Boolean(children);
 
   return (
     <>
@@ -22,13 +22,13 @@ export default function MainPage({ children }) {
       <Wrapper>
         {error ? (
           <h1>{error}</h1>
-        ) : loading && !isPopupPage ? (
+        ) : loading ? (
           <Loader />
         ) : (
           <>
             <Header logo={logo} logoDark={logoDark} />
             <Main />
-            {children}
+            <Outlet />
           </>
         )}
       </Wrapper>
