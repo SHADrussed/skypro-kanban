@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import MainPage from "./pages/MainPage";
@@ -31,37 +31,8 @@ function AppRoutes() {
           <Route path="exit" element={<ExitPage />} />
         </Route>
 
-        <Route
-          path="/card/:id"
-          element={
-            <ProtectedRoute isAuth={!!user}>
-              <CardPage />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/new-card"
-          element={
-            <ProtectedRoute isAuth={!!user}>
-              <NewCardPage />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/exit"
-          element={
-            <ProtectedRoute isAuth={!!user}>
-              <ExitPage />
-            </ProtectedRoute>
-          }
-        />
-
         <Route path="/login" element={<LoginPage />} />
-
         <Route path="/register" element={<RegisterPage />} />
-
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
