@@ -1,11 +1,21 @@
-import { Link, useNavigate } from "react-router-dom";
-import { ErrorMessage, Wrapper } from "../styles/common";
+import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 
+import { ErrorMessage, Wrapper } from "../styles/common";
+import { GlobalStyles } from "../styles/GlobalStyles";
+import {
+  AuthBlock,
+  AuthButton,
+  AuthContainer,
+  AuthForm,
+  AuthFormGroup,
+  AuthInput,
+  AuthLink,
+  AuthModal,
+  AuthTitle,
+} from "./Auth.styled";
 import { loginUser } from "../../services/api";
 import { AuthContext } from "../../contexts/AuthContext";
-
-// Пересорбрать с singup в styled
 
 export default function SignIn() {
   const [loginValue, setLoginValue] = useState("");
@@ -13,17 +23,21 @@ export default function SignIn() {
   const [error, setError] = useState("");
 
   const { login } = useContext(AuthContext);
-
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
     setError("");
     event.preventDefault();
 
+    if (!loginValue.trim() || !password.trim()) {
+      setError("Поля имеют неккоректные данные");
+      return;
+    }
+
     try {
       const data = await loginUser({
-        login: loginValue,
-        password,
+        login: loginValue.trim(),
+        password: password.trim(),
       });
 
       login(data.user);
@@ -40,51 +54,44 @@ export default function SignIn() {
   }
 
   return (
-    <Wrapper>
-      <div className="container-signin">
-        <div className="modal">
-          <div className="modal__block">
-            <div className="modal__ttl">
-              <h2>Вход</h2>
-            </div>
+    <>
+      <GlobalStyles />
+      <Wrapper>
+        <AuthContainer>
+          <AuthModal>
+            <AuthBlock>
+              <AuthTitle>Вход</AuthTitle>
 
-            <form
-              className="modal__form-login"
-              id="formLogIn"
-              onSubmit={handleSubmit}
-            >
-              <input
-                className="modal__input"
-                type="text"
-                name="login"
-                placeholder="Логин"
-                value={loginValue}
-                onChange={(event) => setLoginValue(event.target.value)}
-              />
+              <AuthForm id="formLogIn" onSubmit={handleSubmit}>
+                <AuthInput
+                  type="text"
+                  name="login"
+                  placeholder="Логин"
+                  value={loginValue}
+                  onChange={(event) => setLoginValue(event.target.value)}
+                />
 
-              <input
-                className="modal__input"
-                type="password"
-                name="password"
-                placeholder="Пароль"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-              />
+                <AuthInput
+                  type="password"
+                  name="password"
+                  placeholder="Пароль"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                />
 
-              <button className="modal__btn-enter _hover01" type="submit">
-                Войти
-              </button>
+                <AuthButton type="submit">Войти</AuthButton>
 
-              {error && <ErrorMessage>{error}</ErrorMessage>}
+                {error && <ErrorMessage>{error}</ErrorMessage>}
 
-              <div className="modal__form-group">
-                <p>Нужно зарегистрироваться?</p>
-                <Link to="/register">Регистрируйтесь здесь</Link>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </Wrapper>
+                <AuthFormGroup>
+                  <p>Нужно зарегистрироваться?</p>
+                  <AuthLink to="/register">Регистрируйтесь здесь</AuthLink>
+                </AuthFormGroup>
+              </AuthForm>
+            </AuthBlock>
+          </AuthModal>
+        </AuthContainer>
+      </Wrapper>
+    </>
   );
 }
