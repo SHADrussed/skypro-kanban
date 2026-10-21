@@ -153,7 +153,7 @@ export const PopBrowseOverlay = styled.div`
   display: block;
   width: 100%;
   height: 100%;
-  min-width: 375px;
+  min-width: 0;
   min-height: 100vh;
   position: absolute;
   top: 0;
@@ -176,6 +176,7 @@ export const PopBrowseTopBlock = styled.div`
 `;
 
 export const PopBrowseTtl = styled.h3`
+  overflow-wrap: anywhere;
   color: #000;
   font-size: 20px;
   font-weight: 600;

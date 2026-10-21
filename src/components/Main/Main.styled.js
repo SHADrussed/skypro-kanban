@@ -14,4 +14,7 @@ export const MainBlock = styled.div`
   @media screen and (max-width: 1200px) {
     padding: 40px 0 64px;
   }
+  @media screen and (max-width: 495px) {
+    padding-bottom: 100px;
+  }
 `;

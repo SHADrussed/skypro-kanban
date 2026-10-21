@@ -14,7 +14,7 @@ export default function Card({ card }) {
   return (
     <>
       <CardsItem>
-        <CardsCard>
+        <CardsCard as="article" aria-label={card.title}>
           <CardGroup>
             <CardTheme $colour={card.topic}>
               <p>{card.topic}</p>
