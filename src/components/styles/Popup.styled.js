@@ -39,7 +39,8 @@ export const CategoriesTheme = styled.div`
 
 export const CategoriesThemes = styled.div`
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  row-gap: 8px;
   align-items: flex-start;
   justify-content: flex-start;
 `;

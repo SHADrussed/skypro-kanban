@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Button } from "../../styles/common";
 
 export const HeaderUserSetName = styled.p`
+  overflow-wrap: anywhere;
   color: #000;
   font-size: 14px;
   font-weight: 500;
@@ -11,6 +12,7 @@ export const HeaderUserSetName = styled.p`
 `;
 
 export const HeaderUserSetEmail = styled.p`
+  overflow-wrap: anywhere;
   color: #94a6be;
   font-size: 14px;
   line-height: 21px;
@@ -58,7 +60,11 @@ export const HeaderUserSetTheme = styled.div`
 
 export const ExitButton = styled(Button)`
   width: 72px;
-  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 6px 12px;
   /* специфичные стили */
   background: transparent;
   color: #565eef;

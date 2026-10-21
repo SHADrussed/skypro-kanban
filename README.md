@@ -23,8 +23,12 @@
 
 ## Запуск проекта
 
+Рабочая версия находится в [ветке development](https://github.com/SHADrussed/skypro-kanban/tree/development). Ветка `main` содержит только начальную настройку. Не путайте `development` этого проекта с `develop` проекта Wallet.
+
 ```bash
-npm install
+git clone --branch development https://github.com/SHADrussed/skypro-kanban.git
+cd skypro-kanban
+npm ci
 npm run dev
 ```
 
@@ -33,4 +37,10 @@ npm run dev
 ```bash
 npm run lint
 npm run build
+npx playwright install chromium
+npm test
 ```
+
+`npm test` запускается после сборки, самостоятельно поднимает preview на `127.0.0.1:4190` и проверяет 320/375/390/768/1024/1440 px. Проверяются длинные заголовки, даты, отсутствие наложения карточек, кнопка создания, длинный профиль и одинаковые имя/логин, Escape, закрытие меню снаружи и переходы к формам. Снимки и JSON сохраняются в `.qa/` (не входят в Git). Это тесты с контролируемыми ответами API и синтетической сессией; настоящий сервер не изменяется. Для установленного Edge в PowerShell можно задать `$env:PW_CHANNEL = 'msedge'`; по умолчанию используется Chromium. Приложение загружает Roboto из Google Fonts, поэтому для проверки штатного шрифта нужен доступ к этому сервису.
+
+Новые изменения оформляем в `feat/...`, `fix/...`, `docs/...`, PR направляем в `development`. Исторические ветки не переименовываем и не переписываем. Результаты финальной проверки: [docs/RESPONSIVE_REVIEW.md](docs/RESPONSIVE_REVIEW.md).

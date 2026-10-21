@@ -10,10 +10,13 @@ import { useContext } from "react";
 
 export default function PopUser() {
   const { user } = useContext(AuthContext);
+  const name = user.name?.trim();
+  const login = user.login?.trim();
+  const showLogin = login && login.toLowerCase() !== name?.toLowerCase();
   return (
     <>
-      <HeaderUserSetName>{user.login}</HeaderUserSetName>
-      <HeaderUserSetEmail>{user.name}</HeaderUserSetEmail>
+      <HeaderUserSetName>{name || login}</HeaderUserSetName>
+      {showLogin && name && <HeaderUserSetEmail>{login}</HeaderUserSetEmail>}
 
       <HeaderUserSetTheme>
         <p>Темная тема</p>

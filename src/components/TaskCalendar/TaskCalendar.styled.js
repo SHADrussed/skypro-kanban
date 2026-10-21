@@ -5,9 +5,10 @@ export const CalendarBlock = styled.div`
 `;
 
 export const CalendarCell = styled.div`
-  width: 22px;
-  height: 22px;
-  margin: 2px;
+  width: 100%;
+  max-width: 42px;
+  aspect-ratio: 1;
+  justify-self: center;
   border-radius: 50%;
   display: flex;
   flex-wrap: nowrap;
@@ -19,8 +20,6 @@ export const CalendarCell = styled.div`
   letter-spacing: -0.2px;
   cursor: pointer;
   @media screen and (max-width: 660px) {
-    width: 42px;
-    height: 42px;
     font-size: 14px;
   }
   ${({ $otherMonth }) => $otherMonth && "opacity: 0;"}
@@ -33,17 +32,10 @@ export const CalendarCell = styled.div`
 `;
 
 export const CalendarCells = styled.div`
-  width: 182px;
-  height: 126px;
-  display: flex;
-  flex-wrap: wrap;
-  @media screen and (max-width: 660px) {
-    width: 344px;
-    height: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
 `;
 
 export const CalendarContent = styled.div`
@@ -62,12 +54,14 @@ export const CalendarDayName = styled.div`
 `;
 
 export const CalendarDaysNames = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 4px;
+  text-align: center;
   align-items: center;
   justify-content: space-between;
   margin: 7px 0;
-  padding: 0 7px;
+  padding: 0;
 `;
 
 export const CalendarMonth = styled.div`

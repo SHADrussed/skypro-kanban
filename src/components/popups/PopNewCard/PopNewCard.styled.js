@@ -161,7 +161,7 @@ export const PopNewCardForm = styled.form`
 export const PopNewCardOverlay = styled.div`
   display: block;
   width: 100%;
-  min-width: 375px;
+  min-width: 0;
   height: 100%;
   min-height: 100vh;
   position: absolute;

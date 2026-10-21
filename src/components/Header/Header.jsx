@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   StyledHeader,
@@ -17,6 +17,26 @@ export default function Header({ logo, logoDark }) {
   const { user } = useContext(AuthContext);
 
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const navRef = useRef(null);
+  const userButtonRef = useRef(null);
+
+  useEffect(() => {
+    if (!isUserMenuOpen) return;
+    function dismiss(event) {
+      if (event.type === "keydown" && event.key === "Escape") {
+        setIsUserMenuOpen(false);
+        userButtonRef.current?.focus();
+      } else if (event.type === "pointerdown" && !navRef.current?.contains(event.target)) {
+        setIsUserMenuOpen(false);
+      }
+    }
+    document.addEventListener("pointerdown", dismiss);
+    document.addEventListener("keydown", dismiss);
+    return () => {
+      document.removeEventListener("pointerdown", dismiss);
+      document.removeEventListener("keydown", dismiss);
+    };
+  }, [isUserMenuOpen]);
 
   return (
     <>
@@ -33,16 +53,20 @@ export default function Header({ logo, logoDark }) {
                 <img src={logoDark} alt="logo" />
               </Link>
             </HeaderLogo>
-            <HeaderNav>
-              <HeaderButton id="btnMainNew" as={Link} to="/new-card">
+            <HeaderNav ref={navRef}>
+              <HeaderButton id="btnMainNew" as={Link} to="/new-card" onClick={() => setIsUserMenuOpen(false)}>
                 Создать новую задачу
               </HeaderButton>
               <HeaderUser
                 as="button"
                 type="button"
-                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                ref={userButtonRef}
+                aria-expanded={isUserMenuOpen}
+                aria-controls="user-set-target"
+                aria-label="Профиль пользователя"
+                onClick={() => setIsUserMenuOpen((open) => !open)}
               >
-                {user.name}
+                <span>{user.name || user.login}</span>
               </HeaderUser>
               <HeaderUserPopSet $isOpen={isUserMenuOpen} id="user-set-target">
                 <PopUser />
